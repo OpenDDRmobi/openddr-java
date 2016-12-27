@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright 2011-2016 OpenDDR LLC and others.
+ 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed
+    under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions
+    and limitations under the License.
+-->
+<ODDR>
+    <version>
+        <ver>1.00</ver>
+        <last_updated>2016-11-24 14:00:00</last_updated>
+        <official_url>http://openddr.mobi</official_url>
+        <maintainers></maintainers>
+        <authors></authors>
+        <statement>OpenDDR test data file</statement>
+    </version>
+    <Browsers>
+        <browser id="OpenDDR.test.1.2.4">
+            <property name="cookieSupport" value="True"/>
+            <property name="imageFormatSupport" value="gif87,gif89a,png,jpeg"/>
+            <property name="markupSupport" value="xhtmlBasic10,xhtmlMP10,WML10"/>
+        </browser>
+    </Browsers>
+</ODDR>

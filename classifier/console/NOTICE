@@ -1,0 +1,10 @@
+=============
+Bundled APIs:
+=============
+This module uses Apache Commons CLI and Apache Commons Lang (TM). 
+
+The source code of Apache Commons CLI is available at
+https://commons.apache.org/proper/commons-cli/source-repository.html
+
+The source code of Apache Commons Lang (TM) is available at
+https://commons.apache.org/proper/commons-lang/

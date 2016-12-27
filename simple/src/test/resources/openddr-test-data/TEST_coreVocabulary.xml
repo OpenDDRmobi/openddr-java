@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright 2011-2016 OpenDDR LLC and others.
+ 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed
+    under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions
+    and limitations under the License.
+-->
+<ODDR>
+    <version>
+        <ver>1.00</ver>
+        <last_updated>2016-12-24 14:00:00</last_updated>
+        <official_url>http://openddr.mobi
+        </official_url>
+        <maintainers></maintainers>
+        <authors></authors>
+        <statement>OpenDDR test data file</statement>
+    </version>
+    <VocabularyDescription
+        target="http://www.w3.org/2008/01/ddr-core-vocabulary">
+        <Aspects>
+            <Aspect name="device" />
+            <Aspect name="webBrowser" />
+        </Aspects>
+        <Properties>
+            <Property name="vendor" datatype="xs:string" aspects="device, webBrowser" defaultAspect="device" />
+            <Property name="model" datatype="xs:string" aspects="device, webBrowser" defaultAspect="device" />
+            <Property name="displayWidth" datatype="xs:nonNegativeInteger" aspects="device, webBrowser" defaultAspect="device" />
+            <Property name="displayHeight" datatype="xs:nonNegativeInteger" aspects="device, webBrowser" defaultAspect="device" />
+            <Property name="displayColorDepth" datatype="xs:nonNegativeInteger" aspects="device" defaultAspect="device" />
+            <Property name="cookieSupport" datatype="xs:boolean" aspects="webBrowser" defaultAspect="webBrowser" />
+            <Property name="version" datatype="xs:string" aspects="device, webBrowser" defaultAspect="device" />
+            <Property name="imageFormatSupport" datatype="xs:enumeration" aspects="webBrowser" defaultAspect="webBrowser" />
+            <Property name="inputModeSupport" datatype="xs:enumeration" aspects="webBrowser" defaultAspect="webBrowser" />
+            <Property name="stylesheetSupport" datatype="xs:enumeration" aspects="webBrowser" defaultAspect="webBrowser" />
+            <Property name="markupSupport" datatype="xs:enumeration" aspects="webBrowser" defaultAspect="webBrowser" />
+            <Property name="inputDevices" datatype="xs:enumeration" aspects="device" defaultAspect="device" />
+            <Property name="scriptSupport" datatype="xs:enumeration" aspects="webBrowser" defaultAspect="webBrowser" />
+        </Properties>
+    </VocabularyDescription>
+</ODDR>

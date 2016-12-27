@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    Copyright 2011-2016 OpenDDR LLC and others.
+ 
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed
+    under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions
+    and limitations under the License.
+-->
+<ODDR>
+    <version>
+        <ver>1.00</ver>
+        <last_updated>2016-12-24 14:00:00</last_updated>
+        <official_url>http://openddr.mobi
+        </official_url>
+        <maintainers></maintainers>
+        <authors></authors>
+        <statement>OpenDDR test data file</statement>
+    </version>
+    <Builders>
+        <builder
+            class="mobi.openddr.simple.builder.device.SimpleDeviceBuilder">
+            <device id="desktopDevice">
+                <list>
+                    <value>Mozilla/5.0; (X11; Linux x86_64; rv:8.0)
+                    </value>
+                    <value>Mozilla/4.0 (compatible; MSIE 6.0;</value>
+                    <value>Mozilla/4.0 (compatible; MSIE 7.0;</value>
+                    <value>Mozilla/4.0 (compatible; MSIE 8.0;</value>
+                    <value>Firefox</value>
+                    <value>Firefox/1.0</value>
+                    <value>Firefox/1.5</value>
+                    <value>Firefox/2.0</value>
+                    <value>Firefox/3.0</value>
+                    <value>Firefox/3.5</value>
+                    <value>Firefox/4.0</value>
+                    <value>Firefox/5.0</value>
+                    <value>Firefox/6.0</value>
+                    <value>Firefox/7.0</value>
+                    <value>Opera</value>
+                    <value>Opera/7</value>
+                    <value>Opera 7</value>
+                </list>
+            </device>
+        </builder>
+    </Builders>
+</ODDR>

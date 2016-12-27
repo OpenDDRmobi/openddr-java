@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable 
+	law or agreed to in writing, software distributed under the License is distributed 
+	on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
+	express or implied. See the License for the specific language governing permissions 
+	and limitations under the License. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>mobi.openddr.client</groupId>
+	<artifactId>openddr-java</artifactId>
+	<packaging>pom</packaging>
+	<version>1.3.0-SNAPSHOT</version>
+	<name>OpenDDR Java</name>
+	<description>OpenDDR Java Clients</description>
+	<url>http://openddr.mobi/</url>
+	<inceptionYear>2011</inceptionYear>
+
+	<!-- Test settings that can be overridden from the Maven command line -->
+	<properties>
+		<java.version>1.6</java.version>
+		<jdkVersion>${java.version}</jdkVersion>
+		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
+		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<oddr.data.version>1.32-SNAPSHOT</oddr.data.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>mobi.openddr</groupId>
+				<artifactId>openddr-data</artifactId>
+				<version>${oddr.data.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.9.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-cli</groupId>
+				<artifactId>commons-cli</artifactId>
+				<version>1.3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-configuration2</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.4</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-jexl</artifactId>
+				<version>2.1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- Attach Sources -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.0.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Javadoc generation -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+					<configuration>
+						<source>${maven.compile.sourceLevel}</source>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<docencoding>${project.reporting.outputEncoding}</docencoding>
+						<charset>${project.reporting.outputEncoding}</charset>
+						<locale>en</locale>
+						<noqualifier>all</noqualifier>
+						<quiet>true</quiet>
+						<keywords>true</keywords>
+						<links>
+							<link>http://docs.oracle.com/javase/8/docs/api/</link>
+						</links>
+					</configuration>
+				</plugin>
+
+				<!-- ======================================================= -->
+				<!-- Maven License Plugin -->
+				<!-- ======================================================= -->
+				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>3.0</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<header>src/license/header.txt</header>
+						<properties>
+							<owner>OpenDDR LLC and others</owner>
+							<currentYear>2016</currentYear>
+						</properties>
+						<excludes>
+							<exclude>**/*.adoc</exclude>
+							<exclude>**/*.launch</exclude>
+							<exclude>**/*.sh</exclude>
+							<exclude>**/pom.xml</exclude>
+							<exclude>**/README</exclude>
+							<exclude>**/settings.xml</exclude>
+							<exclude>src/license/**</exclude>
+							<exclude>src/test/resources/**</exclude>
+							<exclude>src/main/resources/**</exclude>
+						</excludes>
+						<headerDefinitions>
+							<headerDefinition>src/license/headers.xml</headerDefinition>
+						</headerDefinitions>
+						<mapping>
+							<java>JAVA_STYLE</java>
+						</mapping>
+					</configuration>
+				</plugin>
+
+				<!-- Install -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>install</goal>
+							</goals>
+							<configuration>
+								<createChecksum>true</createChecksum>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
+
+	<modules>
+		<module>classifier</module>
+		<module>simple</module>
+	</modules>
+</project>
