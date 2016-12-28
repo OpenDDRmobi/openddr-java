@@ -153,12 +153,42 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	
+	<!-- Additional repositories -->
+	<!-- Helps to resolve Parent POM and Snapshot artifacts -->
+	<repositories>
+		<repository>
+			<id>jcenter</id>
+			<name>JCenter</name>
+			<url>http://jcenter.bintray.com</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bintray-release</id>
+			<name>libs-release</name>
+			<url>http://oss.jfrog.org/artifactory/libs-release</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>bintray-snapshot</id>
+			<name>libs-snapshot</name>
+			<url>http://oss.jfrog.org/artifactory/libs-snapshot</url>
+		</repository>
+		<repository>
+			<id>openddr</id>
+			<name>Bintray: OpenDDR</name>
+			<url>https://dl.bintray.com/openddr/maven/</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
-			<!-- TODO: add W3C to JCenter (based on GitHub mirror and checking other W3C artifacts) -->
 			<groupId>org.w3c.ddr</groupId>
-			<artifactId>ddr-simple</artifactId>
+			<artifactId>ddr-simple-api</artifactId>
 			<version>20081205</version>
 		</dependency>
 		<dependency>
