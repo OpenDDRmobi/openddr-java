@@ -156,8 +156,8 @@
 
 	<dependencies>
 		<dependency>
-			<!-- TODO: add W3C to JCenter (based on GitHub mirror) -->
-			<groupId>org.w3c</groupId>
+			<!-- TODO: add W3C to JCenter (based on GitHub mirror and checking other W3C artifacts) -->
+			<groupId>org.w3c.ddr</groupId>
 			<artifactId>ddr-simple</artifactId>
 			<version>20081205</version>
 		</dependency>
@@ -181,5 +181,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 </project>
