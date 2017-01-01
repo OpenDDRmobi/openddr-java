@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2016 OpenDDR LLC and others. All rights reserved.
+ * Copyright (c) 2011-2017 OpenDDR LLC and others. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -116,17 +116,19 @@ public class ClassifierConsole {
 			if (lvCmd.hasOption('f')) {
 				option = LoaderOption.FOLDER;
 				loaderPath = lvCmd.getOptionValue('f');
+				LOG.fine("Folder: " + loaderPath);
 			}
 
 			if (lvCmd.hasOption('j')) {
-				LOG.fine("JAR: " + lvCmd.getOptionObject('j'));
 				option = LoaderOption.JAR;
+				loaderPath = lvCmd.getOptionValue('j');
+				LOG.fine("JAR file: " + loaderPath);
 			}
 
 			if (lvCmd.hasOption('u')) {
 				option = LoaderOption.URL;
 				loaderPath = lvCmd.getOptionValue('u');
-				LOG.fine("URL: " + lvCmd.getOptionObject('u'));
+				LOG.fine("URL: " + loaderPath);
 			}
 
 			if (lvCmd.hasOption('d')) {
