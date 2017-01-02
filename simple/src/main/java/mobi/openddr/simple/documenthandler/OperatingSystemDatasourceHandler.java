@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * 
+ * Handler for Operating System aspect
  * @author Werner Keil
  *
  */
