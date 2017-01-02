@@ -84,7 +84,7 @@ public class DDRService implements Service {
 
     public static final String ASPECT_DEVICE = "device";
     public static final String ASPECT_WEB_BROWSER = "webBrowser";
-    public static final String ASPECT_OPERATIVE_SYSTEM = "operativeSystem";
+    public static final String ASPECT_OPERATING_SYSTEM = "operatingSystem";
     public static final String ASPECT_GROUP = "group";
     public static final String ODDR_UA_DEVICE_BUILDER_PATH_PROP = "oddr.ua.device.builder.path";
     public static final String ODDR_UA_DEVICE_DATASOURCE_PATH_PROP = "oddr.ua.device.datasource.path";
@@ -689,7 +689,7 @@ public class DDRService implements Service {
                         }
                         continue;
 
-                    } else if (ASPECT_OPERATIVE_SYSTEM.equals(propertyRef.getAspectName())) {
+                    } else if (ASPECT_OPERATING_SYSTEM.equals(propertyRef.getAspectName())) {
                         if (!osIdentified) {
                             if (deviceUA == null) {
                                 deviceUA = UserAgentFactory.newDeviceUserAgent(evdnc);
@@ -816,7 +816,7 @@ public class DDRService implements Service {
                 }
                 continue;
 
-            } else if (ASPECT_OPERATIVE_SYSTEM.equals(propertyRef.getAspectName())) {
+            } else if (ASPECT_OPERATING_SYSTEM.equals(propertyRef.getAspectName())) {
                 //TODO: evaluate ua-os header in evidence
                 if (!osIdentified) {
                     if (deviceUA == null) {

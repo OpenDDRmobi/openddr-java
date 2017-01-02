@@ -28,6 +28,11 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ * 
+ * @author Werner Keil
+ *
+ */
 public class OperatingSystemDatasourceHandler extends DefaultHandler {
 
     private static final String ELEMENT_OPERATING_SYSTEM_DESCRIPTION = "operatingSystem";
@@ -99,19 +104,18 @@ public class OperatingSystemDatasourceHandler extends DefaultHandler {
         operatingSystem = new OperatingSystem(properties);
     }
 
-    private void startProperty(Attributes attributes) {
+    @SuppressWarnings("unchecked")
+	private void startProperty(Attributes attributes) {
         propertyName = attributes.getValue(ATTRIBUTE_PROPERTY_NAME);
         propertyValue = attributes.getValue(ATTRIBUTE_PROPERTY_VALUE);
 
         if (vocabularyHolder != null) {
             try {
-                vocabularyHolder.existProperty(propertyName, DDRService.ASPECT_OPERATIVE_SYSTEM, VocabularyService.ODDR_LIMITED_VOCABULARY_IRI);
+                vocabularyHolder.existProperty(propertyName, DDRService.ASPECT_OPERATING_SYSTEM, VocabularyService.ODDR_LIMITED_VOCABULARY_IRI);
                 properties.put(propertyName.intern(), propertyValue);
-
             } catch (Exception ex) {
                 //property non loaded
             }
-
         } else {
             properties.put(propertyName.intern(), propertyValue);
         }
