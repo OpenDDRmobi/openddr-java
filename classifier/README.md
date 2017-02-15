@@ -37,7 +37,7 @@ This client requires openddr-data. Data can be loaded via:
  ## Maven
 
   <dependency>
-    <groupId>org.apache.devicemap</groupId>
+    <groupId>mobi.openddr.client</groupId>
     <artifactId>openddr-classifier-client</artifactId>
     <version>1.3.0</version>
   </dependency>
