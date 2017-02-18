@@ -23,6 +23,12 @@ import mobi.openddr.simple.model.BuiltObject;
 import mobi.openddr.simple.model.UserAgent;
 import mobi.openddr.simple.model.os.OperatingSystem;
 
+/**
+ * 
+ * @author Werner Keil
+ * @version 1.0
+ *
+ */
 public class BlackBerryOSBuilder implements Builder {
 
     private static final String VERSION_REGEXP = "(?:.*?[Bb]lack.?[Bb]erry(?:\\d+)/((\\d+)\\.(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?).*)";
@@ -38,8 +44,8 @@ public class BlackBerryOSBuilder implements Builder {
     public BuiltObject build(UserAgent userAgent, int confidenceTreshold) {
         OperatingSystem model = new OperatingSystem();
 
-        model.setVendor("Research In Motion");
-        model.setModel("Black Berry OS");
+        model.setVendor("BlackBerry");
+        model.setModel("BlackBerry OS");
         model.setMajorRevision("1");
 
         Matcher versionMatcher = versionPattern.matcher(userAgent.getCompleteUserAgent());
