@@ -22,6 +22,12 @@ import mobi.openddr.simple.builder.Builder;
 import mobi.openddr.simple.model.UserAgent;
 import mobi.openddr.simple.model.os.OperatingSystem;
 
+/**
+ * 
+ * @author Werner Keil
+ * @version 1.0
+ *
+ */
 public class BlackBerryMozillaSubBuilder implements Builder {
 
     private static final String VERSION_REGEXP = "(?:.*?Version.?((\\d+)\\.(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?).*)|(?:.*?[Bb]lack.?[Bb]erry(?:\\d+)/((\\d+)\\.(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?).*)|(?:.*?RIM.?Tablet.?OS.?((\\d+)\\.(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?).*)";
@@ -44,51 +50,45 @@ public class BlackBerryMozillaSubBuilder implements Builder {
             Matcher versionMatcher = versionPattern.matcher(tokenElement);
             if (versionMatcher.find()) {
                 if (versionMatcher.group(11) != null) {
-                    model.setVendor("Research In Motion");
-                    model.setModel("RIM Tablet OS");
+                    model.setVendor("BlackBerry");
+                    model.setModel("BlackBerry OS");
                     model.setMajorRevision("1");
                     model.setConfidence(50);
 
                     if (versionMatcher.group(11) != null) {
                         model.setVersion(versionMatcher.group(11));
-
                     }
 
                     if (versionMatcher.group(12) != null) {
                         model.setMajorRevision(versionMatcher.group(12));
                         model.setConfidence(60);
-
                     }
 
                     if (versionMatcher.group(13) != null) {
                         model.setMinorRevision(versionMatcher.group(13));
                         model.setConfidence(70);
-
                     }
 
                     if (versionMatcher.group(14) != null) {
                         model.setMicroRevision(versionMatcher.group(14));
                         model.setConfidence(80);
-
                     }
 
                     if (versionMatcher.group(15) != null) {
                         model.setNanoRevision(versionMatcher.group(5));
                         model.setConfidence(90);
-
                     }
                     return model;
 
                 } else if (versionMatcher.group(1) != null || versionMatcher.group(6) != null) {
-                    model.setVendor("Research In Motion");
-                    model.setModel("Black Berry OS");
+                    model.setVendor("BlackBerry");
+                    model.setModel("BlackBerry OS");
                     model.setMajorRevision("1");
                     model.setConfidence(40);
 
                     if (versionMatcher.group(1) != null) {
                         if (versionMatcher.group(6) != null) {
                             model.setConfidence(100);
-
                         } else {
                             model.setConfidence(80);
                         }
@@ -113,26 +113,22 @@ public class BlackBerryMozillaSubBuilder implements Builder {
 
                     if (versionMatcher.group(3) != null) {
                         model.setMinorRevision(versionMatcher.group(3));
-
                     } else if (versionMatcher.group(8) != null) {
                         model.setMinorRevision(versionMatcher.group(8));
                     }
 
                     if (versionMatcher.group(4) != null) {
                         model.setMicroRevision(versionMatcher.group(4));
-
                     } else if (versionMatcher.group(9) != null) {
                         model.setMicroRevision(versionMatcher.group(9));
                     }
 
                     if (versionMatcher.group(5) != null) {
                         model.setNanoRevision(versionMatcher.group(5));
-
                     } else if (versionMatcher.group(10) != null) {
                         model.setNanoRevision(versionMatcher.group(10));
                     }
                     return model;
-
                 }
             }
         }

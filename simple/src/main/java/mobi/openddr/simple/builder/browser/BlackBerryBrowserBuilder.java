@@ -20,6 +20,12 @@ import java.util.regex.Pattern;
 import mobi.openddr.simple.model.UserAgent;
 import mobi.openddr.simple.model.browser.Browser;
 
+/**
+ * 
+ * @author Werner Keil
+ * @version 1.0
+ *
+ */
 public class BlackBerryBrowserBuilder extends LayoutEngineBrowserBuilder {
 
     private static final String BLACKBERRY_VERSION_REGEXP = ".*(?:(?:Version)|(?:[Bb]lack.?[Bb]erry.?(?:[0-9a-z]+)))/([0-9\\.]+).*";//"(?:.*?Version.?([0-9\\.]+).*)|(?:.*?[Bb]lack.?[Bb]erry(?:\\d+)/([0-9\\.]+).*)";
@@ -37,7 +43,7 @@ public class BlackBerryBrowserBuilder extends LayoutEngineBrowserBuilder {
         int confidence = 50;
         Browser identified = new Browser();
 
-        identified.setVendor("RIM");
+        identified.setVendor("BlackBerry");
         identified.setModel("BlackBerry");
         identified.setVersion("-");
         identified.setMajorRevision("-");
