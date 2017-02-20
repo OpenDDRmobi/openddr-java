@@ -31,7 +31,7 @@ import mobi.openddr.classifier.loader.LoaderFactory;
 
 /**
  * @author Werner Keil
- * @version 1.2
+ * @version 1.3
  */
 public class Classifier {
 	private static final Logger LOG = Logger.getLogger(Classifier.class.getName());
@@ -113,7 +113,7 @@ public class Classifier {
 		LOG.log(Level.FINE, "classify: ''{0}''", text);
 		List<String> parts = split(text);
 
-		// generate ngrams upto size 4
+		// generate ngrams upto size 4 TODO this was not working in some cases, took 4 out
 		for (int i = 0; i < parts.size(); i++) {
 			String pattern = "";
 			String currPart = "";
@@ -121,6 +121,7 @@ public class Classifier {
 				currPart = parts.get(i + j);
 				List<DeviceType> dlist = patterns.get(currPart);
 				if (dlist != null) {
+					// TODO make this and else part reusable
 					hitPatterns.add(currPart);
 					hitDevices.addAll(dlist);
 					for (DeviceType device : dlist) {
