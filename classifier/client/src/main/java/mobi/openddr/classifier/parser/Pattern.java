@@ -83,11 +83,11 @@ public class Pattern {
 
     boolean isValid(Set<String> patternsToMatch) {
         for (String part : pattern) {
-            if (!patternsToMatch.contains(part)) {
-                return false;
+            if (patternsToMatch.contains(part)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /*

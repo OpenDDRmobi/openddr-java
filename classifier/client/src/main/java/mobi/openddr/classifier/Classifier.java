@@ -127,11 +127,14 @@ public class Classifier {
 					for (DeviceType device : dlist) {
 						LOG.log(Level.FINER, "Hit found: ''{0}'' => id: ''{1}'' {2}",
 								new Object[] { currPart, device.getId(), device.getPatternSet() });
+						break;
 					}
 				} else {
 					pattern += currPart;
 					dlist = patterns.get(pattern);
 					if (dlist != null) {
+						hitPatterns.add(pattern);
+						hitDevices.addAll(dlist);
 						for (DeviceType device : dlist) {
 							LOG.log(Level.FINER, "Hit found: ''{0}'' => id: ''{1}'' {2}",
 									new Object[] { pattern, device.getId(), device.getPatternSet() });
