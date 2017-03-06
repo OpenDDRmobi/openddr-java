@@ -115,7 +115,7 @@ public class Classifier {
 
 		// generate ngrams upto size 4 TODO this was not working in some cases, took 4 out
 		for (int i = 0; i < parts.size(); i++) {
-			String pattern = "";
+			String partPattern = "";
 			String currPart = "";
 			for (int j = 0; (j + i) < parts.size(); j++) { // j < 4 &&
 				currPart = parts.get(i + j);
@@ -130,14 +130,14 @@ public class Classifier {
 						break;
 					}
 				} else {
-					pattern += currPart;
-					dlist = patterns.get(pattern);
+					partPattern += currPart;
+					dlist = patterns.get(partPattern);
 					if (dlist != null) {
-						hitPatterns.add(pattern);
+						hitPatterns.add(partPattern);
 						hitDevices.addAll(dlist);
 						for (DeviceType device : dlist) {
 							LOG.log(Level.FINER, "Hit found: ''{0}'' => id: ''{1}'' {2}",
-									new Object[] { pattern, device.getId(), device.getPatternSet() });
+									new Object[] { partPattern, device.getId(), device.getPatternSet() });
 						}
 					}
 				}
@@ -165,7 +165,6 @@ public class Classifier {
 
 			UserAgent userAgent = UserAgent.of(text);
 			LOG.log(Level.FINE, "User Agent: {0}", userAgent);
-			// fixFromUserAgent(winner, userAgent);
 			return adjustFromUserAgent(winner, userAgent).getAttributes();
 		} else {
 			return null;

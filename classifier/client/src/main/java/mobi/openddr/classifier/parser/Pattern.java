@@ -42,7 +42,7 @@ public class Pattern {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
         sb.append('{');
         sb.append(JsonParser.outputKeyValue("type", type)).append(',');
@@ -83,11 +83,11 @@ public class Pattern {
 
     boolean isValid(Set<String> patternsToMatch) {
         for (String part : pattern) {
-            if (patternsToMatch.contains(part)) {
-                return true;
+            if (!patternsToMatch.contains(part)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /*
