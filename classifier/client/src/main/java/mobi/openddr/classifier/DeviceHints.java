@@ -17,11 +17,11 @@ package mobi.openddr.classifier;
 
 /**
  * @author Werner Keil
- * @version 0.4
+ * @version 0.5
  */
 abstract class DeviceHints {
     static enum WindowsVersion {
-	// TODO Windows 10
+    WIN_10("Windows NT 10.0", "Windows 10", "10.0"), //
 	WIN_81("Windows NT 6.3", "Windows 8.1", "8.1"), //
 	WIN_8("Windows NT 6.2", "Windows 8", "8.0"), //
 	WIN_7("Windows NT 6.1", "Windows 7", "7.0"), //
