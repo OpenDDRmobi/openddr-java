@@ -73,8 +73,11 @@ public class TwoStepDeviceBuilder extends OrderedTokenDeviceBuilder {
 
     public void putDevice(String device, List<String> initProperties) {
         String step1TokenString = initProperties.get(0);
-        String step2TokenString = initProperties.get(1);
-
+        String step2TokenString = "";
+        if (initProperties.size() < 1) {
+        	step2TokenString = initProperties.get(1);
+        }
+        	
         if (step2TokenString.matches(".*" + step1TokenString + ".*")) {
             step2TokenString = step2TokenString.replaceAll(step1TokenString + "[^\\p{Alnum}]?", "");
         }
