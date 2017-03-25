@@ -3,7 +3,7 @@
   <parent>
     <groupId>mobi.openddr.client</groupId>
     <artifactId>openddr-java</artifactId>
-    <version>1.3.1-SNAPSHOT</version>
+    <version>1.3.1</version>
   </parent>
   <artifactId>openddr-classifier</artifactId>
   <packaging>pom</packaging>
