@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017 OpenDDR LLC and others. All rights reserved.
+ * Copyright (c) 2011-2018 OpenDDR LLC and others. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,44 +23,43 @@ import mobi.openddr.classifier.loader.LoaderOption;
 
 /**
  * @author Werner Keil
- * @version 1.0
+ * @version 1.1
  */
-public final class ClassifierBuilder implements Builder<Classifier>{
-    // TODO could we change this to a ClassifierBuilder?
-    private Classifier client = null;
-//    private static volatile boolean initialized = false;
+public final class ClassifierBuilder implements Builder<Classifier> {
+	// TODO could we change this to a ClassifierBuilder?
+	private Classifier classifier = null;
+	// private static volatile boolean initialized = false;
 
-    private LoaderOption option = LoaderOption.JAR;
+	private LoaderOption option = LoaderOption.JAR;
 
-    public Classifier build() {
-//	return build(DEFAULT, null);
-	return client;
-    }
+	public Classifier build() {
+		// return build(DEFAULT, null);
+		return classifier;
+	}
 
-    public ClassifierBuilder with(LoaderOption option) {
-	return with(option, null);
-    }
+	public ClassifierBuilder with(LoaderOption option) {
+		return with(option, null);
+	}
 
-    public ClassifierBuilder with(LoaderOption option, String path) {
-	this.option = option;
-//	if (!initialized) {
-	    synchronized (ClassifierBuilder.class) {
-//		if (!initialized) {
-		    client = new Classifier();
-		    try {
-			client.initDeviceData(this.option, path);
-		    } catch (IOException ex) {
-			throw new RuntimeException(ex);
-		    }
-//		    initialized = true;
-//		}
-	    }
-//	}
-//	return client;
-	return this;
-    }
-/*
-    public static void resetClient() {
-	initialized = false;
-    }*/
+	public ClassifierBuilder with(LoaderOption option, String path) {
+		this.option = option;
+		// if (!initialized) {
+		synchronized (ClassifierBuilder.class) {
+			// if (!initialized) {
+			classifier = new Classifier();
+			try {
+				classifier.initDeviceData(this.option, path);
+			} catch (IOException ex) {
+				throw new RuntimeException(ex);
+			}
+			// initialized = true;
+			// }
+		}
+		// }
+		// return client;
+		return this;
+	}
+	/*
+	 * public static void resetClient() { initialized = false; }
+	 */
 }

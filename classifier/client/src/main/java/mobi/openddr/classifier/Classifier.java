@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017 OpenDDR LLC and others. All rights reserved.
+ * Copyright (c) 2011-2018 OpenDDR LLC and others. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import mobi.openddr.classifier.loader.LoaderFactory;
 
 /**
  * @author Werner Keil
- * @version 1.3
+ * @version 1.3.1
  */
 public class Classifier {
 	private static final Logger LOG = Logger.getLogger(Classifier.class.getName());
@@ -46,7 +46,7 @@ public class Classifier {
 
 	private final Device unknown;
 
-	public Classifier() {
+	Classifier() {
 		devices = null;
 		patterns = null;
 		Map<String, String> uAttributes = new HashMap<String, String>();
@@ -213,6 +213,10 @@ public class Classifier {
 			count += pDevices.size();
 		}
 		return count;
+	}
+	
+	public static ClassifierBuilder builder() {
+		return new ClassifierBuilder();
 	}
 
 	Map<String, DeviceType> getDevices() {
