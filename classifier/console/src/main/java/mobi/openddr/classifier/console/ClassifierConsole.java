@@ -35,7 +35,6 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.lang3.time.StopWatch;
 import mobi.openddr.classifier.Classifier;
-import mobi.openddr.classifier.ClassifierBuilder;
 import mobi.openddr.classifier.loader.LoaderOption;
 import mobi.openddr.classifier.loader.impl.DDRLoader;
 import mobi.openddr.classifier.model.Device;
@@ -148,7 +147,7 @@ public class ClassifierConsole {
 				System.out.println("Try calling with '-h' or '--help' for a list of options.");
 				return;
 			}
-			final Classifier client = new ClassifierBuilder().with(option, loaderPath).build();
+			final Classifier client = Classifier.builder().with(option, loaderPath).build();
 			final long start = System.currentTimeMillis();
 			long diff = System.currentTimeMillis() - start;
 
