@@ -15,7 +15,7 @@ This client requires openddr-data. Data can be loaded via:
   Classifier client = ClassifierFactory.getClient(LoaderOption.JAR);
   
   //get classifier using data from a URL
-  //Classifier client = ClassifierFactory.getClient(LoaderOption.URL, "http://dl.bintray.com/openddr/ddr/1.32");
+  //Classifier client = ClassifierFactory.getClient(LoaderOption.URL, "http://dl.bintray.com/openddr/ddr/1.33");
   
   //get classifier using data from a local filesystem 
   //Classifier client = ClassifierFactory.getClient(LoaderOption.FOLDER, "/some/path/openddr/devicedata");
