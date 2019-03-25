@@ -51,7 +51,7 @@ public class DDRLoader implements Loader {
 	private final Resource resourceLoader;
 
 	public DDRLoader(Resource resourceLoader) {
-		devices = new HashMap<String, DeviceType>(5000);
+		devices = new HashMap<>(5000);
 		this.resourceLoader = resourceLoader;
 	}
 
@@ -70,7 +70,7 @@ public class DDRLoader implements Loader {
 		try {
 			start = System.currentTimeMillis();
 
-			BufferedReader ddpin = new BufferedReader(
+			final BufferedReader ddpin = new BufferedReader(
 					new InputStreamReader(resourceLoader.getResource(DEVICE_DATA_PATCH), "UTF-8"));
 			loadDeviceData(ddpin);
 			ddpin.close();
@@ -116,7 +116,7 @@ public class DDRLoader implements Loader {
 		XMLParser parser = new XMLParser(in);
 		String tag;
 		DeviceType device = new DeviceType();
-		Map<String, String> attributes = new HashMap<String, String>();
+		Map<String, String> attributes = new HashMap<>();
 
 		while (!(tag = parser.getNextTag()).isEmpty()) {
 			// new device found
@@ -134,12 +134,16 @@ public class DDRLoader implements Loader {
 
 				// reset the device
 				device = new DeviceType();
-				attributes = new HashMap<String, String>();
+				attributes = new HashMap<>();
 			} else if (tag.startsWith("<property ")) {
 				// add the property to the device
 				String key = XMLParser.getAttribute(tag, "name");
 				String value = XMLParser.getAttribute(tag, "value");
-
+				
+				if ("types".equals(key)) {
+					System.out.println(value);
+				}
+				
 				attributes.put(key, value);
 			}
 		}
@@ -155,7 +159,7 @@ public class DDRLoader implements Loader {
 		String type = "";
 		DeviceType device = null;
 		String id = "";
-		List<String> patterns = new ArrayList<String>();
+		List<String> patterns = new ArrayList<>();
 
 		while (!(tag = parser.getNextTag()).isEmpty()) {
 			// new builder found

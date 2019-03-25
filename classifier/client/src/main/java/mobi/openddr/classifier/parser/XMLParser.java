@@ -30,7 +30,7 @@ public class XMLParser {
     }
 
     public String getNextTag() throws IOException {
-        StringBuilder ret = new StringBuilder();
+        final StringBuilder ret = new StringBuilder();
 
         int i;
         boolean start = false;

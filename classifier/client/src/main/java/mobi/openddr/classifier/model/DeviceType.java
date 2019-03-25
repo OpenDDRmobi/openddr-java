@@ -23,71 +23,69 @@ import mobi.openddr.classifier.parser.PatternSet;
 
 /**
  * @author Werner Keil
- * @version 1.1
+ * @version 1.2
  */
 public class DeviceType {
 
-    private String id;
-    private String parentId;
-    private final PatternSet pattern;
-    private Map<String, String> attributes;
-    private boolean locked;
+	private String id;
+	private String parentId;
+	private final PatternSet pattern;
+	private Map<String, String> attributes;
+	private boolean locked;
 
-    public DeviceType() {
-	pattern = new PatternSet();
-    }
+	public DeviceType() {
+		pattern = new PatternSet();
+	}
 
-    @Override
-    public String toString() {
-	StringBuilder sb = new StringBuilder();
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
 
-	sb.append('{');
-	sb.append(JsonParser.outputKeyValue("id", id)).append(',');
-	sb.append(JsonParser.outputKeyValue("parentId", parentId)).append(',');
-	sb.append(JsonParser.outputString("pattern")).append(':')
-		.append(pattern.toString()).append(',');
-	sb.append(JsonParser.outputString("attributes")).append(':')
-		.append(JsonParser.outputMap(attributes));
-	sb.append('}');
+		sb.append('{');
+		sb.append(JsonParser.outputKeyValue("id", id)).append(',');
+		sb.append(JsonParser.outputKeyValue("parentId", parentId)).append(',');
+		sb.append(JsonParser.outputString("pattern")).append(':').append(pattern.toString()).append(',');
+		sb.append(JsonParser.outputString("attributes")).append(':').append(JsonParser.outputMap(attributes));
+		sb.append('}');
 
-	return sb.toString();
-    }
+		return sb.toString();
+	}
 
-    public String getId() {
-	return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-	this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getParentId() {
-	return parentId;
-    }
+	public String getParentId() {
+		return parentId;
+	}
 
-    public void setParentId(String parentId) {
-	this.parentId = parentId;
-    }
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
 
-    public PatternSet getPatternSet() {
-	return pattern;
-    }
+	public PatternSet getPatternSet() {
+		return pattern;
+	}
 
-    public Map<String, String> getAttributes() {
-	return attributes;
-    }
+	public Map<String, String> getAttributes() {
+		return attributes;
+	}
 
-    public void setAttributes(Map<String, String> attributes) {
-	this.attributes = attributes;
-	this.locked = false;
-    }
+	public void setAttributes(Map<String, String> attributes) {
+		this.attributes = attributes;
+		this.locked = false;
+	}
 
-    public void lockAttributes() {
-	attributes = Collections.unmodifiableMap(attributes);
-	locked = true;
-    }
+	public void lockAttributes() {
+		attributes = Collections.unmodifiableMap(attributes);
+		locked = true;
+	}
 
-    public boolean isLocked() {
-	return locked;
-    }
+	public boolean isLocked() {
+		return locked;
+	}
 }
