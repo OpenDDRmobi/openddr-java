@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017 OpenDDR LLC and others. All rights reserved.
+ * Copyright (c) 2011-2019 OpenDDR LLC and others. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import mobi.openddr.classifier.model.UserAgent;
 
 /**
  * @author Werner Keil
- * @version 1.1
+ * @version 1.2
  */
 abstract class DeviceAdjuster {
 	private static final Logger LOG = Logger.getLogger(DeviceAdjuster.class.getName());
@@ -50,7 +50,7 @@ abstract class DeviceAdjuster {
 		Map<String, String> attributes;
 		if (device.isLocked()) {
 			// clone map
-			attributes = new HashMap<String, String>();
+			attributes = new HashMap<>();
 
 			attributes.putAll(device.getAttributes());
 		} else {

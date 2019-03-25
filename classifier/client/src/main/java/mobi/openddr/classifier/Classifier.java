@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017 OpenDDR LLC and others. All rights reserved.
+ * Copyright (c) 2011-2019 OpenDDR LLC and others. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,8 +106,8 @@ public class Classifier {
 			return null;
 		}
 
-		Set<String> hitPatterns = new HashSet<String>();
-		Set<DeviceType> hitDevices = new HashSet<DeviceType>();
+		Set<String> hitPatterns = new HashSet<>();
+		Set<DeviceType> hitDevices = new HashSet<>();
 		DeviceType winner = null;
 		Pattern winnerPattern = null;
 		LOG.log(Level.FINE, "classify: ''{0}''", text);
@@ -163,7 +163,7 @@ public class Classifier {
 		if (winner != null) {
 			LOG.log(Level.FINE, "Result: {0}", winner);
 
-			UserAgent userAgent = UserAgent.of(text);
+			final UserAgent userAgent = UserAgent.of(text);
 			LOG.log(Level.FINE, "User Agent: {0}", userAgent);
 			return adjustFromUserAgent(winner, userAgent).getAttributes();
 		} else {

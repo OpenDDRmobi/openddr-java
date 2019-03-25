@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017 OpenDDR LLC and others. All rights reserved.
+ * Copyright (c) 2011-2019 OpenDDR LLC and others. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ import mobi.openddr.classifier.model.Device;
 /**
  * @author Werner Keil
  * @author Reza Naghibi
- * @version 1.3
+ * @version 1.4
  */
 public class ClassifierConsole {
 	private static final String APP_NAME = "OpenDDR Classifier Console";
@@ -230,10 +230,10 @@ public class ClassifierConsole {
 	}
 
 	private static void map(Classifier client, String text) {
-		StopWatch stopWatch = new StopWatch();
+		final StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 
-		Device device = client.classifyDevice(text);
+		final Device device = client.classifyDevice(text);
 		stopWatch.stop();
 		String deviceId = "unknown";
 		if (device != null) {

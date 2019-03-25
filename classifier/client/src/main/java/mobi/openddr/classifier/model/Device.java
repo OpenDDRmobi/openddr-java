@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2017 OpenDDR LLC and others. All rights reserved.
+ * Copyright (c) 2011-2019 OpenDDR LLC and others. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import mobi.openddr.classifier.parser.JsonParser;
 
 /**
  * @author Werner Keil
- * @version 1.1
+ * @version 1.2
  */
 public class Device {
     public static final String UNKNOWN_ID = "unknown";
@@ -30,32 +30,32 @@ public class Device {
     private final Map<String, String> attributes;
 
     public Device(String id, Map<String, String> attributes) {
-	this.id = id;
-	this.attributes = attributes;
+    	this.id = id;
+    	this.attributes = attributes;
     }
 
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder();
-
-	sb.append('{');
-	sb.append(JsonParser.outputKeyValue("id", id)).append(',');
-	sb.append(JsonParser.outputString("attributes")).append(':')
-		.append(JsonParser.outputMap(attributes));
-	sb.append('}');
-
-	return sb.toString();
+		final StringBuilder sb = new StringBuilder();
+	
+		sb.append('{');
+		sb.append(JsonParser.outputKeyValue("id", id)).append(',');
+		sb.append(JsonParser.outputString("attributes")).append(':')
+			.append(JsonParser.outputMap(attributes));
+		sb.append('}');
+	
+		return sb.toString();
     }
 
     public String getId() {
-	return id;
+    	return id;
     }
 
     public String getAttribute(String key) {
-	return attributes.get(key);
+    	return attributes.get(key);
     }
 
     public Map<String, String> getAttributes() {
-	return attributes;
+    	return attributes;
     }
 }

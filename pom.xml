@@ -151,7 +151,7 @@
 						<header>src/license/header.txt</header>
 						<properties>
 							<owner>OpenDDR LLC and others</owner>
-							<currentYear>2017</currentYear>
+							<currentYear>2019</currentYear>
 						</properties>
 						<excludes>
 							<exclude>**/*.adoc</exclude>
