@@ -27,9 +27,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import mobi.openddr.classifier.loader.Loader;
@@ -124,6 +126,10 @@ public class DDRLoader2 implements Loader {
 		String tag;
 		DeviceType device = new DeviceType();
 		Map<String, String> attributes = new HashMap<>();
+		final QName ID = new QName("id");
+		final QName PARENT_ID = new QName("parentId");
+		final QName NAME = new QName("name");
+		final QName VALUE = new QName("value");
 		
 		XMLInputFactory xmlInFact = XMLInputFactory.newInstance();
 	    //XMLStreamReader reader = xmlInFact.createXMLStreamReader(in);
@@ -131,20 +137,27 @@ public class DDRLoader2 implements Loader {
 	    while(reader.hasNext()) {
 
 	           //reader.next(); // do something here
-	           XMLEvent e = reader.nextEvent();
-	           System.out.println(e.toString());
-	           if (e.isCharacters()) {
-	        	   tag = e.asCharacters().getData();
-	           } else {
-	        	   tag = "";
-	           }
+	           XMLEvent event = reader.nextEvent();
+	           
+	           tag = event.toString();
+	           LOG.log(Level.FINEST, "Tag: {}", tag);
+	           //System.out.println(tag);
+//	           if (e.isCharacters()) {
+//	        	   tag = e.asCharacters().getData();
+//	           } else {
+//	        	   tag = "";
+//	           }
 
 
 		//while (!(tag = parser.getNextTag()).isEmpty()) {
 			// new device found
 			if (tag.startsWith("<device ")) {
-				device.setId(XMLParser.getAttribute(tag, "id"));
-				device.setParentId(XMLParser.getAttribute(tag, "parentId"));
+				//device.setId(e. XMLParser.getAttribute(tag, "id"));
+				final StartElement startElement = event.asStartElement();
+                
+				device.setId(startElement.getAttributeByName(ID).getValue());
+				device.setParentId(startElement.getAttributeByName(PARENT_ID).getValue());
+				//device.setParentId(XMLParser.getAttribute(tag, "parentId"));
 			} else if (tag.equals("</device>")) {
 
 				// add the device
@@ -159,14 +172,22 @@ public class DDRLoader2 implements Loader {
 				attributes = new HashMap<>();
 			} else if (tag.startsWith("<property ")) {
 				// add the property to the device
-				String key = XMLParser.getAttribute(tag, "name");
-				String value = XMLParser.getAttribute(tag, "value");
-				
-				if ("types".equals(key)) {
-					System.out.println(value);
+				final StartElement startElement = event.asStartElement();
+				if (null != startElement) {
+					String key = startElement.getAttributeByName(NAME).getValue();
+					
+					String value = ""; 
+					if (startElement.getAttributeByName(VALUE) != null) {
+						value = startElement.getAttributeByName(VALUE).getValue(); 					
+					}
+					//String value = "";
+					
+					if ("types".equals(key)) {
+						System.out.println(value);
+					}
+					
+					attributes.put(key, value);
 				}
-				
-				attributes.put(key, value);
 			}
 		}
 	}
