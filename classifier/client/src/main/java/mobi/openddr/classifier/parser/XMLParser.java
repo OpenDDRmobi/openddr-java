@@ -18,10 +18,15 @@ package mobi.openddr.classifier.parser;
 import java.io.IOException;
 import java.io.Reader;
 
+/**
+ * 
+ * @author rezan
+ * @deprecated This is a rather primitive XML parser, we should use DOM or StAX where possible
+ *
+ */
 public class XMLParser {
 
     private final Reader in;
-
     private char pre;
 
     public XMLParser(Reader in) {

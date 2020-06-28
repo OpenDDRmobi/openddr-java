@@ -36,6 +36,7 @@ import mobi.openddr.classifier.parser.XMLParser;
 /**
  * 
  * @author Werner Keil
+ * @deprecated use DDRStAXLoader with StAX Parser instead
  *
  */
 public class DDRLoader implements Loader {

@@ -41,13 +41,13 @@ import mobi.openddr.classifier.parser.Pattern;
 import mobi.openddr.classifier.parser.XMLParser;
 
 /**
- * 
+ * This loader is based on a StAX Parser to parse device data
  * @author Werner Keil
- *
+ * @version 0.9
  */
-public class DDRLoader2 implements Loader {
+public class DDRStAXLoader implements Loader {
 
-	private final static Logger LOG = Logger.getLogger(DDRLoader2.class.getName());
+	private final static Logger LOG = Logger.getLogger(DDRStAXLoader.class.getName());
 
 	private static final String DEVICE_DATA = "DeviceDataSource.xml";
 	private static final String DEVICE_DATA_PATCH = "DeviceDataSourcePatch.xml";
@@ -57,7 +57,7 @@ public class DDRLoader2 implements Loader {
 	private final Map<String, DeviceType> devices;
 	private final Resource resourceLoader;
 
-	public DDRLoader2(Resource resourceLoader) {
+	public DDRStAXLoader(Resource resourceLoader) {
 		devices = new HashMap<>(5000);
 		this.resourceLoader = resourceLoader;
 	}

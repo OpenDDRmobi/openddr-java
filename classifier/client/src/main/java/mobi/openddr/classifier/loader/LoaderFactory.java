@@ -16,7 +16,7 @@
 package mobi.openddr.classifier.loader;
 
 import mobi.openddr.classifier.loader.impl.DDRLoader;
-import mobi.openddr.classifier.loader.impl.DDRLoader2;
+import mobi.openddr.classifier.loader.impl.DDRStAXLoader;
 import mobi.openddr.classifier.loader.impl.FileResource;
 import mobi.openddr.classifier.loader.impl.JarResource;
 import mobi.openddr.classifier.loader.impl.NoopLoader;
@@ -36,7 +36,7 @@ public abstract class LoaderFactory {
 	    return new DDRLoader(new JarResource(path));
 	}
 	case FOLDER: {
-	    return new DDRLoader2(new FileResource(path));
+	    return new DDRStAXLoader(new FileResource(path));
 	}
 	case URL: {
 	    return new DDRLoader(new URLResource(path));
