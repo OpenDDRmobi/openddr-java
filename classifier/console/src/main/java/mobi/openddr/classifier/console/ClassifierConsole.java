@@ -37,12 +37,13 @@ import org.apache.commons.lang3.time.StopWatch;
 import mobi.openddr.classifier.Classifier;
 import mobi.openddr.classifier.loader.LoaderOption;
 import mobi.openddr.classifier.loader.impl.DDRLoader;
+import mobi.openddr.classifier.loader.impl.DDRStAXLoader;
 import mobi.openddr.classifier.model.Device;
 
 /**
  * @author Werner Keil
  * @author Reza Naghibi
- * @version 1.4
+ * @version 1.4.1
  */
 public class ClassifierConsole {
 	private static final String APP_NAME = "OpenDDR Classifier Console";
@@ -105,6 +106,7 @@ public class ClassifierConsole {
 				LOG.setLevel(debugLevel);
 				Logger.getLogger(Classifier.class.getName()).setLevel(debugLevel);
 				Logger.getLogger(DDRLoader.class.getName()).setLevel(debugLevel);
+				Logger.getLogger(DDRStAXLoader.class.getName()).setLevel(debugLevel);
 				for (Handler h : Logger.getLogger(Classifier.class.getName()).getParent().getHandlers()) {
 					if (h instanceof ConsoleHandler) {
 						h.setLevel(debugLevel);
