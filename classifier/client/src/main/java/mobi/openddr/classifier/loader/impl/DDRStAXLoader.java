@@ -37,13 +37,12 @@ import javax.xml.stream.events.XMLEvent;
 import mobi.openddr.classifier.loader.Loader;
 import mobi.openddr.classifier.loader.Resource;
 import mobi.openddr.classifier.model.DeviceType;
-import mobi.openddr.classifier.parser.Pattern;
-import mobi.openddr.classifier.parser.XMLParser;
+import mobi.openddr.classifier.model.Pattern;
 
 /**
  * This loader is based on a StAX Parser to parse device data
  * @author Werner Keil
- * @version 0.9
+ * @version 0.9.5
  */
 public class DDRStAXLoader implements Loader {
 
@@ -96,6 +95,7 @@ public class DDRStAXLoader implements Loader {
 
 		BufferedReader bin = new BufferedReader(
 				new InputStreamReader(resourceLoader.getResource(BUILDER_DATA), "UTF-8"));
+
 		loadDevicePatterns(bin);
 		bin.close();
 
@@ -131,17 +131,17 @@ public class DDRStAXLoader implements Loader {
 		final QName NAME = new QName("name");
 		final QName VALUE = new QName("value");
 		
-		XMLInputFactory xmlInFact = XMLInputFactory.newInstance();
+		final XMLInputFactory xmlInFact = XMLInputFactory.newInstance();
 	    //XMLStreamReader reader = xmlInFact.createXMLStreamReader(in);
-		XMLEventReader reader = xmlInFact.createXMLEventReader(in);
+		final XMLEventReader reader = xmlInFact.createXMLEventReader(in);
+		
 	    while(reader.hasNext()) {
-
-	           //reader.next(); // do something here
-	           XMLEvent event = reader.nextEvent();
-	           
-	           tag = event.toString();
-	           LOG.log(Level.FINEST, "Tag: {}", tag);
-	           //System.out.println(tag);
+           //reader.next(); // do something here
+           XMLEvent event = reader.nextEvent();
+           
+           tag = event.toString();
+           LOG.log(Level.FINEST, "Tag: {}", tag);
+           //System.out.println(tag);
 //	           if (e.isCharacters()) {
 //	        	   tag = e.asCharacters().getData();
 //	           } else {
@@ -196,7 +196,7 @@ public class DDRStAXLoader implements Loader {
 	 * loads patterns from an InputStreamReader
 	 */
 	private void loadDevicePatterns(Reader in) throws IOException {
-		XMLParser parser = new XMLParser(in);
+		final PatternParser parser = new PatternParser(in);
 		String tag;
 		String builder = "";
 		String type = "";
@@ -207,7 +207,7 @@ public class DDRStAXLoader implements Loader {
 		while (!(tag = parser.getNextTag()).isEmpty()) {
 			// new builder found
 			if (tag.startsWith("<builder ")) {
-				builder = XMLParser.getAttribute(tag, "class");
+				builder = PatternParser.getAttribute(tag, "class");
 
 				if (builder.lastIndexOf(".") >= 0) {
 					builder = builder.substring(builder.lastIndexOf(".") + 1);
@@ -219,7 +219,7 @@ public class DDRStAXLoader implements Loader {
 				}
 			} else if (tag.startsWith("<device ")) {
 				// new device found
-				id = XMLParser.getAttribute(tag, "id");
+				id = PatternParser.getAttribute(tag, "id");
 				device = devices.get(id);
 			} else if (tag.equals("</device>")) {
 				// add the device
@@ -250,7 +250,7 @@ public class DDRStAXLoader implements Loader {
 				// reset the device
 				device = null;
 				id = "";
-				patterns = new ArrayList<String>();
+				patterns = new ArrayList<>();
 			} else if (tag.equals("<value>")) {
 				// add the pattern to the device
 				String pattern = Pattern.normalize(parser.getTagValue());
@@ -263,7 +263,7 @@ public class DDRStAXLoader implements Loader {
 			}
 		}
 	}
-
+	
 	/**
 	 * Sets attributes from parents
 	 */

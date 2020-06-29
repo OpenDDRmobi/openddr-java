@@ -25,13 +25,13 @@ import java.util.logging.Logger;
 import mobi.openddr.classifier.loader.LoaderOption;
 import mobi.openddr.classifier.model.Device;
 import mobi.openddr.classifier.model.DeviceType;
+import mobi.openddr.classifier.model.Pattern;
 import mobi.openddr.classifier.model.UserAgent;
-import mobi.openddr.classifier.parser.Pattern;
 import mobi.openddr.classifier.loader.LoaderFactory;
 
 /**
  * @author Werner Keil
- * @version 1.3.1
+ * @version 1.4
  */
 public class Classifier {
 	private static final Logger LOG = Logger.getLogger(Classifier.class.getName());
@@ -79,12 +79,12 @@ public class Classifier {
 
 		for (DeviceType device : devices.values()) {
 			for (Pattern pattern : device.getPatternSet().getPatterns()) {
-				for (int i = 0; i < pattern.getPatternParts().size(); i++) {
-					String part = pattern.getPatternParts().get(i);
+				for (int i = 0; i < pattern.getParts().size(); i++) {
+					String part = pattern.getParts().get(i);
 
 					// duplicate
 					if (patterns.get(part) != null) {
-						if (i == (pattern.getPatternParts().size() - 1) && !patterns.get(part).contains(device)) {
+						if (i == (pattern.getParts().size() - 1) && !patterns.get(part).contains(device)) {
 							patterns.get(part).add(device);
 						}
 					} else {

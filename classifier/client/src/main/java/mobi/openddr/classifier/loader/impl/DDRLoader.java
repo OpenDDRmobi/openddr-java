@@ -30,8 +30,7 @@ import java.util.logging.Logger;
 import mobi.openddr.classifier.loader.Loader;
 import mobi.openddr.classifier.loader.Resource;
 import mobi.openddr.classifier.model.DeviceType;
-import mobi.openddr.classifier.parser.Pattern;
-import mobi.openddr.classifier.parser.XMLParser;
+import mobi.openddr.classifier.model.Pattern;
 
 /**
  * 
@@ -114,7 +113,7 @@ public class DDRLoader implements Loader {
 	 * loads device data from an InputStreamReader
 	 */
 	private void loadDeviceData(Reader in) throws IOException {
-		XMLParser parser = new XMLParser(in);
+		PatternParser parser = new PatternParser(in);
 		String tag;
 		DeviceType device = new DeviceType();
 		Map<String, String> attributes = new HashMap<>();
@@ -122,8 +121,8 @@ public class DDRLoader implements Loader {
 		while (!(tag = parser.getNextTag()).isEmpty()) {
 			// new device found
 			if (tag.startsWith("<device ")) {
-				device.setId(XMLParser.getAttribute(tag, "id"));
-				device.setParentId(XMLParser.getAttribute(tag, "parentId"));
+				device.setId(PatternParser.getAttribute(tag, "id"));
+				device.setParentId(PatternParser.getAttribute(tag, "parentId"));
 			} else if (tag.equals("</device>")) {
 
 				// add the device
@@ -138,8 +137,8 @@ public class DDRLoader implements Loader {
 				attributes = new HashMap<>();
 			} else if (tag.startsWith("<property ")) {
 				// add the property to the device
-				String key = XMLParser.getAttribute(tag, "name");
-				String value = XMLParser.getAttribute(tag, "value");
+				String key = PatternParser.getAttribute(tag, "name");
+				String value = PatternParser.getAttribute(tag, "value");
 				
 				if ("types".equals(key)) {
 					System.out.println(value);
@@ -154,7 +153,7 @@ public class DDRLoader implements Loader {
 	 * loads patterns from an InputStreamReader
 	 */
 	private void loadDevicePatterns(Reader in) throws IOException {
-		XMLParser parser = new XMLParser(in);
+		PatternParser parser = new PatternParser(in);
 		String tag;
 		String builder = "";
 		String type = "";
@@ -165,7 +164,7 @@ public class DDRLoader implements Loader {
 		while (!(tag = parser.getNextTag()).isEmpty()) {
 			// new builder found
 			if (tag.startsWith("<builder ")) {
-				builder = XMLParser.getAttribute(tag, "class");
+				builder = PatternParser.getAttribute(tag, "class");
 
 				if (builder.lastIndexOf(".") >= 0) {
 					builder = builder.substring(builder.lastIndexOf(".") + 1);
@@ -177,7 +176,7 @@ public class DDRLoader implements Loader {
 				}
 			} else if (tag.startsWith("<device ")) {
 				// new device found
-				id = XMLParser.getAttribute(tag, "id");
+				id = PatternParser.getAttribute(tag, "id");
 				device = devices.get(id);
 			} else if (tag.equals("</device>")) {
 				// add the device

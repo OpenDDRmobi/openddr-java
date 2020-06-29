@@ -18,9 +18,6 @@ package mobi.openddr.classifier.model;
 import java.util.Collections;
 import java.util.Map;
 
-import mobi.openddr.classifier.parser.JsonParser;
-import mobi.openddr.classifier.parser.PatternSet;
-
 /**
  * @author Werner Keil
  * @version 1.2
@@ -42,10 +39,10 @@ public class DeviceType {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append('{');
-		sb.append(JsonParser.outputKeyValue("id", id)).append(',');
-		sb.append(JsonParser.outputKeyValue("parentId", parentId)).append(',');
-		sb.append(JsonParser.outputString("pattern")).append(':').append(pattern.toString()).append(',');
-		sb.append(JsonParser.outputString("attributes")).append(':').append(JsonParser.outputMap(attributes));
+		sb.append(JsonHelper.outputKeyValue("id", id)).append(',');
+		sb.append(JsonHelper.outputKeyValue("parentId", parentId)).append(',');
+		sb.append(JsonHelper.outputString("pattern")).append(':').append(pattern.toString()).append(',');
+		sb.append(JsonHelper.outputString("attributes")).append(':').append(JsonHelper.outputMap(attributes));
 		sb.append('}');
 
 		return sb.toString();

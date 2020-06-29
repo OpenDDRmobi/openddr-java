@@ -13,23 +13,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package mobi.openddr.classifier.parser;
+package mobi.openddr.classifier.loader.impl;
 
 import java.io.IOException;
 import java.io.Reader;
 
 /**
- * 
- * @author rezan
- * @deprecated This is a rather primitive XML parser, we should use DOM or StAX where possible
+ * This is a simple XML parser used primarily for device builder data.
+ * @author Werner Keil
+ * @author Reza Naghibi 
+ * @version 1.3 
  *
  */
-public class XMLParser {
+class PatternParser {
 
     private final Reader in;
     private char pre;
 
-    public XMLParser(Reader in) {
+    PatternParser(Reader in) {
         this.in = in;
         pre = 0;
     }

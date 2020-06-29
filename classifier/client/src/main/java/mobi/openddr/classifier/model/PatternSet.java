@@ -13,7 +13,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package mobi.openddr.classifier.parser;
+package mobi.openddr.classifier.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class PatternSet {
         for (Pattern pattern : patterns) {
             orPatterns.add(pattern.toString());
         }
-        return JsonParser.outputList(orPatterns, false);
+        return JsonHelper.outputList(orPatterns, false);
     }
 
     /*

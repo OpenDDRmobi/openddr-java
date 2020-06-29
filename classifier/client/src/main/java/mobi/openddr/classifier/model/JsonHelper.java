@@ -13,12 +13,18 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package mobi.openddr.classifier.parser;
+package mobi.openddr.classifier.model;
 
 import java.util.List;
 import java.util.Map;
 
-public class JsonParser {
+/**
+ * A helper class for JSON strings
+ * @author Werner Keil
+ * @version 1.0
+ *
+ */
+abstract class JsonHelper {
 
     public static String outputString(String s) {
         if (s == null) {

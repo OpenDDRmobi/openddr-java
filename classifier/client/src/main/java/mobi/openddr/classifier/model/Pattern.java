@@ -13,7 +13,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package mobi.openddr.classifier.parser;
+package mobi.openddr.classifier.model;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.Set;
 
 /**
  * @author Werner Keil
- * @version 1.2
+ * @version 1.3
  */
 public class Pattern {
     private final List<String> pattern;
@@ -45,10 +45,10 @@ public class Pattern {
         final StringBuilder sb = new StringBuilder();
 
         sb.append('{');
-        sb.append(JsonParser.outputKeyValue("type", type)).append(',');
-        sb.append(JsonParser.outputKeyRValue("rank", rank)).append(',');
-        sb.append(JsonParser.outputKeyRValue("boost", boost)).append(',');
-        sb.append(JsonParser.outputString("pattern")).append(':').append(JsonParser.outputList(pattern, true));
+        sb.append(JsonHelper.outputKeyValue("type", type)).append(',');
+        sb.append(JsonHelper.outputKeyRValue("rank", rank)).append(',');
+        sb.append(JsonHelper.outputKeyRValue("boost", boost)).append(',');
+        sb.append(JsonHelper.outputString("pattern")).append(':').append(JsonHelper.outputList(pattern, true));
         sb.append('}');
 
         return sb.toString();
@@ -77,7 +77,7 @@ public class Pattern {
         return type;
     }
 
-    public List<String> getPatternParts() {
+    public List<String> getParts() {
         return pattern;
     }
 
