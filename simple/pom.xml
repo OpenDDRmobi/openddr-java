@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>mobi.openddr.client</groupId>
 		<artifactId>openddr-java</artifactId>
-		<version>1.4.0-SNAPSHOT</version>
+		<version>1.4.0</version>
 	</parent>
 	<artifactId>openddr-w3c-simple</artifactId>
 	<description>OpenDDR W3C DDR Simple Implementation</description>
