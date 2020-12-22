@@ -19,17 +19,17 @@ import java.util.Map;
 
 /**
  * @author Werner Keil
- * @version 1.2
+ * @version 2.0
  */
 public class Device {
     public static final String UNKNOWN_ID = "unknown";
 
     private final String id;
-    private final Map<String, String> attributes;
+    private final Map<String, String> properties;
 
-    public Device(String id, Map<String, String> attributes) {
+    public Device(String id, Map<String, String> properties) {
     	this.id = id;
-    	this.attributes = attributes;
+    	this.properties = properties;
     }
 
     @Override
@@ -38,8 +38,8 @@ public class Device {
 	
 		sb.append('{');
 		sb.append(JsonHelper.outputKeyValue("id", id)).append(',');
-		sb.append(JsonHelper.outputString("attributes")).append(':')
-			.append(JsonHelper.outputMap(attributes));
+		sb.append(JsonHelper.outputString("properties")).append(':')
+			.append(JsonHelper.outputMap(properties));
 		sb.append('}');
 	
 		return sb.toString();
@@ -49,11 +49,25 @@ public class Device {
     	return id;
     }
 
-    public String getAttribute(String key) {
-    	return attributes.get(key);
+    public String getProperty(String key) {
+    	return properties.get(key);
     }
 
+    public Map<String, String> getProperties() {
+    	return properties;
+    }
+    
+    /**
+     * @deprecated use getProperty()
+     */
+    public String getAttribute(String key) {
+    	return getProperty(key);
+    }
+    
+    /**
+     * @deprecated use getProperties()
+     */
     public Map<String, String> getAttributes() {
-    	return attributes;
+    	return getProperties();
     }
 }

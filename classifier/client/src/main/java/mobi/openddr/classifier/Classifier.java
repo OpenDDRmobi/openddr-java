@@ -31,7 +31,7 @@ import mobi.openddr.classifier.loader.LoaderFactory;
 
 /**
  * @author Werner Keil
- * @version 1.4
+ * @version 2.0
  */
 public class Classifier {
 	private static final Logger LOG = Logger.getLogger(Classifier.class.getName());
