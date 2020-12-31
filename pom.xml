@@ -26,7 +26,7 @@
 
 	<!-- Test settings that can be overridden from the Maven command line -->
 	<properties>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 		<jdkVersion>${java.version}</jdkVersion>
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
