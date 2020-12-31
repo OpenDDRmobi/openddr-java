@@ -27,7 +27,7 @@ import mobi.openddr.classifier.model.UserAgent;
 
 /**
  * @author Werner Keil
- * @version 1.2
+ * @version 1.3
  */
 abstract class DeviceAdjuster {
 	private static final Logger LOG = Logger.getLogger(DeviceAdjuster.class.getName());
@@ -43,8 +43,11 @@ abstract class DeviceAdjuster {
 	private static final String CHROME_VERSION_REGEXP = "Chrome.([0-9a-z\\.b]+).*";
 	private static final String SAFARI_REGEXP = ".*Safari/([0-9\\.]+).*?";
 
-	private static final String BROWSER = "mobile_browser";
-	private static final String BROWSER_VERSION = "mobile_browser_version";
+	private static final String BROWSER = "browser";
+	private static final String BROWSER_VERSION = "browser_version";
+	
+	private static final String MOBILE_BROWSER = "mobile_browser";
+	private static final String MOBILE_BROWSER_VERSION = "mobile_browser_version";
 
 	static final DeviceType adjustFromUserAgent(final DeviceType device, final UserAgent userAgent) {
 		Map<String, String> attributes;
@@ -131,11 +134,20 @@ abstract class DeviceAdjuster {
 				// Matcher chromeVersionMatcher =
 				// chromeVersionPattern.matcher(pattern);
 				// System.out.println(chromeVersionMatcher);
-				final String versionExisting = attributes.get(BROWSER_VERSION);
-				if (!version.equals(versionExisting)) {
-					LOG.fine("Adjusting '" + versionExisting + "' to '" + version + "'");
-					attributes.put(BROWSER_VERSION, version);
-					attributes.put(BROWSER, CHROME);
+				if (attributes.containsKey(BROWSER_VERSION)) {
+					final String versionExisting = attributes.get(BROWSER_VERSION);
+					if (!version.equals(versionExisting)) {
+						LOG.fine("Adjusting '" + versionExisting + "' to '" + version + "'");
+						attributes.put(BROWSER_VERSION, version);
+						attributes.put(BROWSER, CHROME);
+					}
+				} else if (attributes.containsKey(MOBILE_BROWSER_VERSION)) { // fallback
+					final String versionExisting = attributes.get(MOBILE_BROWSER_VERSION);
+					if (!version.equals(versionExisting)) {
+						LOG.fine("Adjusting '" + versionExisting + "' to '" + version + "'");
+						attributes.put(MOBILE_BROWSER_VERSION, version);
+						attributes.put(MOBILE_BROWSER, CHROME);
+					}
 				}
 			}
 			// Pattern safariPattern = Pattern.compile(SAFARI_REGEXP);
