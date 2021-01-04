@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020 OpenDDR LLC and others. All rights reserved.
+ * Copyright (c) 2011-2021 OpenDDR LLC and others. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import mobi.openddr.classifier.Classifier;
 import mobi.openddr.classifier.loader.LoaderOption;
 
 public class ClassifierLoadTest {
-	private static final String DEFAULT_URL = "http://dl.bintray.com/openddr/ddr/1.33/";	    
+	private static final String DEFAULT_URL = "http://dl.bintray.com/openddr/ddr/1.34/";	    
 	private static final int DEFAULT_ITERATIONS = 10;
 	
     public static void main(String[] args) throws Exception {
