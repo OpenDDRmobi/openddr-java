@@ -24,19 +24,24 @@ public class ClassifierLoadTest {
 	
     public static void main(String[] args) throws Exception {
     	int iterations = DEFAULT_ITERATIONS;
-    	if (args.length>0) {
+    	String url = DEFAULT_URL;
+    	if (args.length > 0) {
     		iterations = Integer.parseInt(args[0]);
+    		if (args.length > 1) {
+    			url = args[1];
+    		}
     	}
+    	System.out.println(String.format("%s iterations using  '%s'...", iterations, url));
     	for (int i=0; i<iterations; i++) {
-    		init();
+    		load(url);
     		Thread.sleep(100);
     	}
     }
    
-    private static synchronized void init() {
+    private static synchronized void load(final String url) {
         long start = System.nanoTime();
 
-        final Classifier classifier = Classifier.builder().with(LoaderOption.URL, DEFAULT_URL).build();
+        final Classifier classifier = Classifier.builder().with(LoaderOption.URL, url).build();
         long diff = (System.nanoTime() - start) / 1000;
         System.out.println("OpenDDR Classifier loaded " + classifier.getDeviceCount() + " devices and " + classifier.getPatternCount() + " patterns in " + diff + "ms");
     }
