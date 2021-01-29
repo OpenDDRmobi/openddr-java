@@ -16,6 +16,7 @@
 package mobi.openddr.classifier;
 
 import static mobi.openddr.classifier.model.UserAgent.ANDROID;
+import static mobi.openddr.classifier.model.UserAgent.MAC;
 import static mobi.openddr.classifier.model.UserAgent.WINDOWS;
 
 import java.util.HashMap;
@@ -27,16 +28,19 @@ import mobi.openddr.classifier.model.UserAgent;
 
 /**
  * @author Werner Keil
- * @version 1.3
+ * @version 1.4
  */
 abstract class DeviceAdjuster {
 	private static final Logger LOG = Logger.getLogger(DeviceAdjuster.class.getName());
 
+	private static final String DEVICE_VENDOR = "vendor";
+	private static final String DEVICE_MODEL = "model";
 	private static final String DEVICE_OS = "device_os";
 	private static final String DEVICE_OS_VERSION = "device_os_version";
-	// private static final String VENDOR = "vendor";
-	private static final String LIKE_MAC = "like Mac OS X";
-
+	
+	private static final String LIKE_MAC_OS_X = "like Mac OS X";
+	private static final String MAC_OS_X = "Mac OS X";
+	
 	private static final String CHROME = "Chrome";
 	private static final String SAFARI = "Safari";
 
@@ -48,6 +52,8 @@ abstract class DeviceAdjuster {
 	
 	private static final String MOBILE_BROWSER = "mobile_browser";
 	private static final String MOBILE_BROWSER_VERSION = "mobile_browser_version";
+	
+	private static final String VENDOR_APPLE = "Apple";
 
 	static final DeviceType adjustFromUserAgent(final DeviceType device, final UserAgent userAgent) {
 		Map<String, String> attributes;
@@ -76,11 +82,14 @@ abstract class DeviceAdjuster {
 							device.setAttributes(attributes);
 						}
 					}
-					if (part.trim().endsWith(LIKE_MAC)) {
+					
+					if (part.trim().endsWith(LIKE_MAC_OS_X)) {
 						final String versionCandidate = part.trim()
-								.substring(0, part.trim().length() - LIKE_MAC.length()).trim();
+								.substring(0, part.trim().length() - LIKE_MAC_OS_X.length()).trim();
 						if (versionCandidate.contains("OS")) {
-							final String versionPart = versionCandidate.substring(versionCandidate.indexOf("OS") + 2)
+							final int versionCutoff = versionCandidate.indexOf("OS") + 2;
+							final String versionPart = (versionCandidate.length() > versionCutoff ?
+									versionCandidate.substring(versionCutoff) : versionCandidate)							
 									.trim().replaceAll("_", ".");
 							final String versionExisting = attributes.get(DEVICE_OS_VERSION);
 							if (!versionPart.equals(versionExisting)) {
@@ -90,6 +99,62 @@ abstract class DeviceAdjuster {
 							}
 						}
 					}
+					else if (part.trim().contains(MAC_OS_X)) {
+						final String versionCandidate = part.trim();						
+						if (versionCandidate.contains("OS")) {
+							final int versionCutoff = versionCandidate.indexOf("OS") + 4;
+							final String versionPart = (versionCandidate.length() > versionCutoff ?
+									versionCandidate.substring(versionCutoff) : versionCandidate)
+									.trim().replaceAll("_", ".");
+							final String osPart = versionCandidate.substring(0, versionCutoff);
+							final String versionExisting = attributes.get(DEVICE_OS_VERSION);
+							boolean attribChanged = false;
+							if (!versionPart.equals(versionExisting)) {
+								LOG.fine("Adjusting '" + versionExisting + "' to '" + versionPart + "'");
+								attributes.put(DEVICE_OS_VERSION, versionPart);
+								attribChanged = true;
+							}
+							final String osExisting = attributes.get(DEVICE_OS);
+							if (!osPart.equals(osExisting)) {
+								LOG.fine("Adjusting '" + osExisting + "' to '" + osPart + "'");
+								attributes.put(DEVICE_OS, osPart);
+								attribChanged = true;
+							}
+							if (attribChanged) {
+								device.setAttributes(attributes);
+							}
+						}
+					}					
+					if (part.trim().startsWith(MAC)) {
+						final String versionCandidate = part.trim();						
+						if (versionCandidate.contains("OS")) {
+							final int versionCutoff = versionCandidate.indexOf("OS") + 2;
+							final String versionPart = (versionCandidate.length() > versionCutoff ? 
+									versionCandidate.substring(versionCutoff) : versionCandidate)
+									.trim().replaceAll("_", ".");														
+							final String versionExisting = attributes.get(DEVICE_OS_VERSION);
+							if (!versionPart.equals(versionExisting)) {
+								LOG.fine("Adjusting '" + versionExisting + "' to '" + versionPart + "'");
+								attributes.put(DEVICE_OS_VERSION, versionPart);
+								device.setAttributes(attributes);
+							}
+						} else {							
+							final String modelExisting = attributes.get(DEVICE_MODEL);
+							final String model = versionCandidate;
+							if (modelExisting != null) {
+								if (!modelExisting.equals(model)) {
+									LOG.fine("Adjusting '" + modelExisting + "' to '" + model + "'");
+									attributes.put(DEVICE_MODEL, model);
+									attributes.put(DEVICE_VENDOR, VENDOR_APPLE);
+								} else {
+									LOG.fine("Setting '" + DEVICE_MODEL + "' to '" + model + "'");
+									attributes.put(DEVICE_MODEL, model);
+									attributes.put(DEVICE_VENDOR, VENDOR_APPLE);
+								}
+							}
+						}
+					}
+					
 					if (part.trim().startsWith(WINDOWS)) {
 						final String versionCandidate = part.trim();
 						DeviceHints.WindowsVersion version = DeviceHints.WindowsVersion.ofToken(versionCandidate);
@@ -103,7 +168,7 @@ abstract class DeviceAdjuster {
 								attributes.put(DEVICE_OS_VERSION, version.getVersion());
 							}
 							// final String vendorExisting =
-							// attributes.get(VENDOR);
+							// attributes.get(DEVICE_VENDOR);
 							// if (vendorExisting == null ||
 							// vendorExisting.length()==0 ||
 							// "-".equals(vendorExisting) ) {
@@ -112,7 +177,7 @@ abstract class DeviceAdjuster {
 							// if
 							// (Boolean.parseBoolean(attributes.get("is_desktop")))
 							// {
-							// attributes.put(VENDOR, "Microsoft");
+							// attributes.put(DEVICE_VENDOR, "Microsoft");
 							// }
 							// }
 						}
@@ -128,8 +193,8 @@ abstract class DeviceAdjuster {
 		pattern = userAgent.getPatternElementsPost();
 		if (pattern != null) {
 			if (pattern.contains(CHROME)) {
-				String parts = pattern.substring(pattern.indexOf(CHROME));
-				String version = parts.substring(CHROME.length() + 1, parts.indexOf(" "));
+				final String parts = pattern.substring(pattern.indexOf(CHROME));
+				final String version = parts.substring(CHROME.length() + 1, parts.indexOf(" ") == -1 ? parts.length() : parts.indexOf(" "));
 				// System.out.println(version);
 				// Matcher chromeVersionMatcher =
 				// chromeVersionPattern.matcher(pattern);

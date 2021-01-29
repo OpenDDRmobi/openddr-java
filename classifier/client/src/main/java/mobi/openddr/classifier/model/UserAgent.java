@@ -20,11 +20,12 @@ import java.util.regex.Pattern;
 
 /**
  * @author Werner Keil
- * @version 0.5
+ * @version 1.0
  */
 public class UserAgent {
 	public static final String ANDROID = "Android";
 	public static final String WINDOWS = "Windows";
+	public static final String MAC = "Macintosh";
 	
     public static final String MOZILLA_AND_OPERA_PATTERN = "(.*?)((?:Mozilla)|(?:Opera))[/ ](\\d+\\.\\d+).*?\\(((?:.*?)(?:.*?\\(.*?\\))*(?:.*?))\\)(.*)";
     public static final int INDEX_MOZILLA_PATTERN_GROUP_PRE = 1;
