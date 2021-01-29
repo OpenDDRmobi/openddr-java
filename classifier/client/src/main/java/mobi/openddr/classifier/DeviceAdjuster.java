@@ -28,7 +28,7 @@ import mobi.openddr.classifier.model.UserAgent;
 
 /**
  * @author Werner Keil
- * @version 1.4
+ * @version 1.5
  */
 abstract class DeviceAdjuster {
 	private static final Logger LOG = Logger.getLogger(DeviceAdjuster.class.getName());
@@ -41,8 +41,8 @@ abstract class DeviceAdjuster {
 	private static final String LIKE_MAC_OS_X = "like Mac OS X";
 	private static final String MAC_OS_X = "Mac OS X";
 	
-	private static final String CHROME = "Chrome";
-	private static final String SAFARI = "Safari";
+	private static final String BROWSER_CHROME = "Chrome";
+	private static final String BROWSER_SAFARI = "Safari";
 
 	private static final String CHROME_VERSION_REGEXP = "Chrome.([0-9a-z\\.b]+).*";
 	private static final String SAFARI_REGEXP = ".*Safari/([0-9\\.]+).*?";
@@ -192,9 +192,9 @@ abstract class DeviceAdjuster {
 		// Browser
 		pattern = userAgent.getPatternElementsPost();
 		if (pattern != null) {
-			if (pattern.contains(CHROME)) {
-				final String parts = pattern.substring(pattern.indexOf(CHROME));
-				final String version = parts.substring(CHROME.length() + 1, parts.indexOf(" ") == -1 ? parts.length() : parts.indexOf(" "));
+			if (pattern.contains(BROWSER_CHROME)) {
+				final String parts = pattern.substring(pattern.indexOf(BROWSER_CHROME));
+				final String version = parts.substring(BROWSER_CHROME.length() + 1, parts.indexOf(" ") == -1 ? parts.length() : parts.indexOf(" "));
 				// System.out.println(version);
 				// Matcher chromeVersionMatcher =
 				// chromeVersionPattern.matcher(pattern);
@@ -204,14 +204,14 @@ abstract class DeviceAdjuster {
 					if (!version.equals(versionExisting)) {
 						LOG.fine("Adjusting '" + versionExisting + "' to '" + version + "'");
 						attributes.put(BROWSER_VERSION, version);
-						attributes.put(BROWSER, CHROME);
+						attributes.put(BROWSER, BROWSER_CHROME);
 					}
 				} else if (attributes.containsKey(MOBILE_BROWSER_VERSION)) { // fallback
 					final String versionExisting = attributes.get(MOBILE_BROWSER_VERSION);
 					if (!version.equals(versionExisting)) {
 						LOG.fine("Adjusting '" + versionExisting + "' to '" + version + "'");
 						attributes.put(MOBILE_BROWSER_VERSION, version);
-						attributes.put(MOBILE_BROWSER, CHROME);
+						attributes.put(MOBILE_BROWSER, BROWSER_CHROME);
 					}
 				}
 			}
