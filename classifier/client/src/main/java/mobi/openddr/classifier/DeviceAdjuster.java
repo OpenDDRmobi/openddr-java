@@ -22,6 +22,8 @@ import static mobi.openddr.classifier.model.UserAgent.WINDOWS;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import mobi.openddr.classifier.model.DeviceType;
 import mobi.openddr.classifier.model.UserAgent;
@@ -44,7 +46,7 @@ abstract class DeviceAdjuster {
 	private static final String BROWSER_CHROME = "Chrome";
 	private static final String BROWSER_SAFARI = "Safari";
 
-	private static final String CHROME_VERSION_REGEXP = "Chrome.([0-9a-z\\.b]+).*";
+	//private static final String CHROME_VERSION_REGEXP = "Chrome.([0-9a-z\\.b]+).*";
 	private static final String SAFARI_REGEXP = ".*Safari/([0-9\\.]+).*?";
 
 	private static final String BROWSER = "browser";
@@ -53,9 +55,10 @@ abstract class DeviceAdjuster {
 	private static final String MOBILE_BROWSER = "mobile_browser";
 	private static final String MOBILE_BROWSER_VERSION = "mobile_browser_version";
 	
-	private static final String VENDOR_APPLE = "Apple";
-
+	private static final String VENDOR_APPLE = "Apple";	
+	
 	static final DeviceType adjustFromUserAgent(final DeviceType device, final UserAgent userAgent) {
+		boolean isApple = false;
 		Map<String, String> attributes;
 		if (device.isLocked()) {
 			// clone map
@@ -146,10 +149,12 @@ abstract class DeviceAdjuster {
 									LOG.fine("Adjusting '" + modelExisting + "' to '" + model + "'");
 									attributes.put(DEVICE_MODEL, model);
 									attributes.put(DEVICE_VENDOR, VENDOR_APPLE);
+									isApple = true;
 								} else {
 									LOG.fine("Setting '" + DEVICE_MODEL + "' to '" + model + "'");
 									attributes.put(DEVICE_MODEL, model);
 									attributes.put(DEVICE_VENDOR, VENDOR_APPLE);
+									isApple = true;
 								}
 							}
 						}
@@ -192,7 +197,31 @@ abstract class DeviceAdjuster {
 		// Browser
 		pattern = userAgent.getPatternElementsPost();
 		if (pattern != null) {
-			if (pattern.contains(BROWSER_CHROME)) {
+			if (isApple) {
+				if (pattern.contains(BROWSER_SAFARI)) {
+					final Pattern safariRegexPattern = Pattern.compile(SAFARI_REGEXP);
+					//LOG.fine("Adjusting '" + safariRegexPattern + "' to '" + safariRegexPattern + "'");
+					final Matcher safariMatcher = safariRegexPattern.matcher(pattern);
+					if (safariMatcher.matches()) {
+						final String version = safariMatcher.group(1);					
+						if (attributes.containsKey(BROWSER_VERSION)) {
+							final String versionExisting = attributes.get(BROWSER_VERSION);
+							if (!version.equals(versionExisting)) {
+								LOG.fine("Adjusting '" + versionExisting + "' to '" + version + "'");
+								attributes.put(BROWSER_VERSION, version);
+								attributes.put(BROWSER, BROWSER_SAFARI);
+							}
+						} else if (attributes.containsKey(MOBILE_BROWSER_VERSION)) { // fallback
+							final String versionExisting = attributes.get(MOBILE_BROWSER_VERSION);
+							if (!version.equals(versionExisting)) {
+								LOG.fine("Adjusting '" + versionExisting + "' to '" + version + "'");
+								attributes.put(MOBILE_BROWSER_VERSION, version);
+								attributes.put(MOBILE_BROWSER, BROWSER_SAFARI);
+							}
+						}
+					}
+				}
+			} else	if (pattern.contains(BROWSER_CHROME)) {
 				final String parts = pattern.substring(pattern.indexOf(BROWSER_CHROME));
 				final String version = parts.substring(BROWSER_CHROME.length() + 1, parts.indexOf(" ") == -1 ? parts.length() : parts.indexOf(" "));
 				// System.out.println(version);
@@ -214,9 +243,7 @@ abstract class DeviceAdjuster {
 						attributes.put(MOBILE_BROWSER, BROWSER_CHROME);
 					}
 				}
-			}
-			// Pattern safariPattern = Pattern.compile(SAFARI_REGEXP);
-
+			}			
 		}
 
 		device.setAttributes(attributes);
