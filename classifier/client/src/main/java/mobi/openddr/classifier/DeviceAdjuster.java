@@ -79,7 +79,7 @@ abstract class DeviceAdjuster {
 						if (!versionPart.equals(versionExisting)) {
 							LOG.fine("Adjusting '" + versionExisting + "' to '" + versionPart + "'");
 							attributes.put(DEVICE_OS_VERSION, versionPart);
-							device.setAttributes(attributes);
+							//device.setAttributes(attributes);
 						}
 					}
 					
@@ -95,7 +95,7 @@ abstract class DeviceAdjuster {
 							if (!versionPart.equals(versionExisting)) {
 								LOG.fine("Adjusting '" + versionExisting + "' to '" + versionPart + "'");
 								attributes.put(DEVICE_OS_VERSION, versionPart);
-								device.setAttributes(attributes);
+								//device.setAttributes(attributes);
 							}
 						}
 					}
@@ -136,7 +136,7 @@ abstract class DeviceAdjuster {
 							if (!versionPart.equals(versionExisting)) {
 								LOG.fine("Adjusting '" + versionExisting + "' to '" + versionPart + "'");
 								attributes.put(DEVICE_OS_VERSION, versionPart);
-								device.setAttributes(attributes);
+								//device.setAttributes(attributes);
 							}
 						} else {							
 							final String modelExisting = attributes.get(DEVICE_MODEL);
