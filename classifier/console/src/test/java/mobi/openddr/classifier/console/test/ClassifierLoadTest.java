@@ -31,7 +31,7 @@ public class ClassifierLoadTest {
     			url = args[1];
     		}
     	}
-    	System.out.println(String.format("%s iterations using  '%s'...", iterations, url));
+    	System.out.println(String.format("%s iterations using '%s'...", iterations, url));
     	for (int i=0; i<iterations; i++) {
     		load(url);
     		Thread.sleep(100);
