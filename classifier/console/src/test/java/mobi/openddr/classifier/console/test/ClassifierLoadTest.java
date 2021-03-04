@@ -19,7 +19,7 @@ import mobi.openddr.classifier.Classifier;
 import mobi.openddr.classifier.loader.LoaderOption;
 
 public class ClassifierLoadTest {
-	private static final String DEFAULT_URL = "https://dl.bintray.com/openddr/ddr/1.34/";	    
+	private static final String DEFAULT_URL = "http://openddr.mobi/data/latest/";	    
 	private static final int DEFAULT_ITERATIONS = 10;
 	
     public static void main(String[] args) throws Exception {
