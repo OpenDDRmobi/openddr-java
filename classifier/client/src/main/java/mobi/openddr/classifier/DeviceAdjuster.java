@@ -30,7 +30,7 @@ import mobi.openddr.classifier.model.UserAgent;
 
 /**
  * @author Werner Keil
- * @version 1.5
+ * @version 2.0
  */
 abstract class DeviceAdjuster {
 	private static final Logger LOG = Logger.getLogger(DeviceAdjuster.class.getName());
@@ -45,6 +45,9 @@ abstract class DeviceAdjuster {
 	
 	private static final String BROWSER_CHROME = "Chrome";
 	private static final String BROWSER_SAFARI = "Safari";
+	private static final String BROWSER_EDGE = "Edg";
+	private static final String BROWSER_OPERA = "OPR";
+	private static final String BROWSER_NINTENDO = "NintendoBrowser";
 
 	//private static final String CHROME_VERSION_REGEXP = "Chrome.([0-9a-z\\.b]+).*";
 	private static final String SAFARI_REGEXP = ".*Safari/([0-9\\.]+).*?";
@@ -243,7 +246,11 @@ abstract class DeviceAdjuster {
 						attributes.put(MOBILE_BROWSER, BROWSER_CHROME);
 					}
 				}
-			}			
+			}
+		} else	if (pattern.contains(BROWSER_EDGE)) {
+			
+		} else	if (pattern.contains(BROWSER_OPERA)) {
+			
 		}
 
 		device.setAttributes(attributes);
